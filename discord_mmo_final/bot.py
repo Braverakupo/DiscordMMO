@@ -1,85 +1,15 @@
-import json
 import discord
 from discord.ext import commands
-from discord import ui, ButtonStyle, File
-import os
+from discord import File
+import json
+import asyncio # Keep for running the dojo loop
+from typing import Optional
 
-# ------------------------------------------------------
-# Scene Loader
-# ------------------------------------------------------
-def load_scene(scene_name: str) -> dict:
-    with open("world.json", "r", encoding="utf-8") as f:
-        world = json.load(f)
-    return world.get(scene_name, {
-        "title": "Scene Missing",
-        "body": f"Scene `{scene_name}` not found.",
-        "buttons": []
-    })
-
-# ------------------------------------------------------
-# Scene Renderer
-# ------------------------------------------------------
-def scene_to_embed(scene: dict, title_prefix: str = "▶ ") -> discord.Embed:
-    embed = discord.Embed(
-        title=f"{title_prefix}{scene.get('title','Untitled')}",
-        description=scene.get("body", "")
-    )
-    if scene.get("image"):
-        image_file = scene["image"]
-        embed.set_image(url=f"attachment://{os.path.basename(image_file)}")
-    return embed
-
-# ------------------------------------------------------
-# Helper: Get File for Scene Image
-# ------------------------------------------------------
-def _get_scene_file(scene: dict):
-    """Return a discord.File if the scene has a valid image path, else None."""
-    if scene.get("image") and os.path.exists(scene["image"]):
-        filename = os.path.basename(scene["image"])
-        return File(scene["image"], filename=filename)
-    return None
-
-# ------------------------------------------------------
-# Scene View & Buttons
-# ------------------------------------------------------
-class SceneView(ui.View):
-    def __init__(self, scene: dict, *, timeout: float = 1800):
-        super().__init__(timeout=timeout)
-        for b in scene.get("buttons", []):
-            self.add_item(SceneButton(b))
-
-class SceneButton(ui.Button):
-    def __init__(self, btn_json: dict):
-        super().__init__(label=btn_json.get("label", "Next"), style=ButtonStyle.primary)
-        self.btn_json = btn_json
-
-    async def callback(self, interaction: discord.Interaction):
-        # --------------------------------------------------
-        # Effects + Requires (dormant, no-op for now)
-        # --------------------------------------------------
-        requires = self.btn_json.get("requires", {})
-        effects  = self.btn_json.get("effects", {})
-
-        if requires or effects:
-            print(f"DEBUG: Button '{self.label}' pressed. Requires={requires}, Effects={effects}")
-
-        # --------------------------------------------------
-        # Navigate to next scene
-        # --------------------------------------------------
-        next_scene_name = self.btn_json.get("next_scene")
-        if not next_scene_name:
-            await interaction.response.send_message("🚫 No next scene defined.", ephemeral=True)
-            return
-
-        next_scene = load_scene(next_scene_name)
-        new_view = SceneView(next_scene)
-        file = _get_scene_file(next_scene)
-
-        await interaction.response.edit_message(
-            embed=scene_to_embed(next_scene),
-            view=new_view,
-            attachments=[file] if file else []
-        )
+# --- Import from separated modules ---
+from button_manager import SceneView
+from state import dojo_training_loop, load_player
+from scene_loader import load_scene
+from discord_utils import scene_to_embed, get_scene_file # NEW
 
 # ------------------------------------------------------
 # Bot Setup
@@ -91,15 +21,24 @@ bot = commands.Bot(command_prefix="!", intents=intents)
 @bot.event
 async def on_ready():
     print(f"✅ Logged in as {bot.user} (ID: {bot.user.id})")
+    # Start the background training loop when the bot is ready
+    bot.loop.create_task(dojo_training_loop())
 
 @bot.command()
-async def start(ctx, scene_name: str = "town_square"):
+async def start(ctx, scene_name: Optional[str] = "town_square"):
+    """Starts a new game session or loads a specific scene."""
+    
+    # 1. Load scene and player state
     scene = load_scene(scene_name)
-    view = SceneView(scene)
-    file = _get_scene_file(scene)
+    player = load_player(ctx.author.id) 
+    
+    # 2. Prepare the view and attachments
+    view = SceneView(owner_id=ctx.author.id, scene=scene)
+    file = get_scene_file(scene) # Use helper function
 
+    # 3. Send the message
     await ctx.send(
-        embed=scene_to_embed(scene),
+        embed=scene_to_embed(scene, player), # Use helper function
         view=view,
         files=[file] if file else None
     )
@@ -108,7 +47,13 @@ async def start(ctx, scene_name: str = "town_square"):
 # Entry
 # ------------------------------------------------------
 if __name__ == "__main__":
-    with open("tokenz.json", "r", encoding="utf-8") as f:
-        cfg = json.load(f)
-    TOKEN = cfg["TOKEN"]
+    try:
+        # Assuming your token is in 'tokenz.json'
+        with open("tokenz.json", "r") as f:
+            config = json.load(f)
+        TOKEN = config["TOKEN"]
+    except Exception as e:
+        print("ERROR: Could not load token from tokenz.json.")
+        exit()
+
     bot.run(TOKEN)
