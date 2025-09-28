@@ -1,0 +1,158 @@
+{
+  "town_square": {
+    "title": "🏙️ Town Square",
+    "body": "The heart of Arcadia bustles with merchants, exiles, and hidden agents. Lanterns sway overhead, casting golden light on cobblestones polished by centuries of footsteps. A bard’s song drifts from somewhere unseen.",
+    "image": "static/town_square.png",
+    "buttons": [
+      {
+        "label": "🏰 Visit the Castle",
+        "next_scene": "castle_gate"
+      },
+      {
+        "label": "🍻 Enter the Tavern",
+        "next_scene": "tavern_inside"
+      },
+      {
+        "label": "🌲 Exit to Forest",
+        "next_scene": "forest_edge"
+      },
+      {
+        "label": "💰 Toss Coin to Beggar",
+        "requires": { "gold": 1 },
+        "effects": { "gold": -1, "xp": 2 },
+        "next_scene": "town_square"
+      },
+      {
+        "label": "👂 Listen to Street Gossip",
+        "next_scene": "gossip_corner"
+      }
+    ]
+  },
+
+  "castle_gate": {
+    "title": "🏰 Castle Gate",
+    "body": "Tall iron gates loom before you, guarded by armored sentries with cold, watchful eyes. The banners of Arcadia ripple in the wind, their once-bright colors dulled by ash and time.",
+    "image": "static/castle_gate.png",
+    "buttons": [
+      {
+        "label": "🗣️ Speak to Guard",
+        "effects": { "xp": 1 },
+        "next_scene": "castle_gate"
+      },
+      {
+        "label": "🔍 Inspect the Old Banner",
+        "next_scene": "castle_banner"
+      },
+      {
+        "label": "⬅️ Return to Town Square",
+        "next_scene": "town_square"
+      }
+    ]
+  },
+
+  "tavern_inside": {
+    "title": "🍻 Tavern Interior",
+    "body": "The tavern glows with firelight. Tankards slam, dice tumble, and the air is thick with laughter and secrets. In the corner, a bard sings softly of battles long past, while the innkeeper eyes you curiously.",
+    "image": "static/tavern.png",
+    "buttons": [
+      {
+        "label": "🎶 Listen to Bard",
+        "effects": { "mana": 5, "xp": 1 },
+        "next_scene": "tavern_inside"
+      },
+      {
+        "label": "🍺 Buy Ale (5 gold)",
+        "requires": { "gold": 5 },
+        "effects": { "gold": -5, "hp": 10 },
+        "next_scene": "tavern_inside"
+      },
+      {
+        "label": "🃏 Watch a Game of Dice",
+        "next_scene": "dice_game"
+      },
+      {
+        "label": "⬅️ Return to Town Square",
+        "next_scene": "town_square"
+      }
+    ]
+  },
+
+  "forest_edge": {
+    "title": "🌲 Forest Edge",
+    "body": "The woods whisper with unseen eyes. Mist curls between ancient oaks, and every rustle hints at predator or prey. The path ahead narrows, swallowed by shadows.",
+    "image": "static/forest_edge.png",
+    "buttons": [
+      {
+        "label": "⚔️ Hunt Boar",
+        "effects": { "xp": 3, "gold": 2 },
+        "next_scene": "forest_edge"
+      },
+      {
+        "label": "🌌 Follow the Strange Glow",
+        "next_scene": "mystic_grove"
+      },
+      {
+        "label": "⬅️ Return to Town Square",
+        "next_scene": "town_square"
+      }
+    ]
+  },
+
+  "gossip_corner": {
+    "title": "👂 Gossip Corner",
+    "body": "You lean against a wall near a knot of traders. Their whispers weave tales of smuggling, rebellion, and strange lights beyond the northern hills. The city is alive with rumors.",
+    "image": "static/gossip.png",
+    "buttons": [
+      {
+        "label": "⬅️ Return to Town Square",
+        "next_scene": "town_square"
+      }
+    ]
+  },
+
+  "castle_banner": {
+    "title": "🏴 Castle Banner",
+    "body": "The faded cloth is frayed at the edges. Once a proud emblem of Arcadia, it now bears claw marks—deep and deliberate. Something once tried to tear this kingdom’s heart down.",
+    "image": "static/banner.png",
+    "buttons": [
+      {
+        "label": "⬅️ Return to Castle Gate",
+        "next_scene": "castle_gate"
+      }
+    ]
+  },
+
+  "dice_game": {
+    "title": "🎲 Dice Game",
+    "body": "A group of rough-looking patrons slam dice onto a wooden table. The clatter draws cheers and curses alike. One player waves you over, grinning through broken teeth.",
+    "image": "static/dice.png",
+    "buttons": [
+      {
+        "label": "😏 Join the Dice Game",
+        "effects": { "gold": -2, "xp": 2 },
+        "next_scene": "tavern_inside"
+      },
+      {
+        "label": "⬅️ Return to Tavern",
+        "next_scene": "tavern_inside"
+      }
+    ]
+  },
+
+  "mystic_grove": {
+    "title": "🌌 Mystic Grove",
+    "body": "The forest parts to reveal a clearing bathed in blue light. Crystals jut from the earth, pulsing faintly. A soft hum fills your ears, both comforting and unsettling.",
+    "image": "static/grove.png",
+    "buttons": [
+      {
+        "label": "✨ Touch the Crystal",
+        "effects": { "mana": 10 },
+        "next_scene": "mystic_grove"
+      },
+      {
+        "label": "⬅️ Return to Forest Edge",
+        "next_scene": "forest_edge"
+      }
+    ]
+  }
+}

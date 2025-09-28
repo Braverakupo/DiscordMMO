@@ -1,0 +1,84 @@
+{
+  "town_square": {
+    "title": "🏙️ Town Square",
+    "body": "The heart of Arcadia bustles with merchants, exiles, and hidden agents. The cobblestones echo with stories untold.",
+    "image": "assets/town_square.png",
+    "buttons": [
+      {
+        "label": "🏰 Visit the Castle",
+        "next_scene": "castle_gate"
+      },
+      {
+        "label": "🍻 Enter the Tavern",
+        "next_scene": "tavern_inside"
+      },
+      {
+        "label": "🌲 Exit to Forest",
+        "next_scene": "forest_edge"
+      },
+      {
+        "label": "💰 Toss Coin to Beggar",
+        "requires": { "gold": 1 },
+        "effects": { "gold": -1, "xp": 2 },
+        "next_scene": "town_square"
+      }
+    ]
+  },
+
+  "castle_gate": {
+    "title": "🏰 Castle Gate",
+    "body": "Tall iron gates block the way, guarded by armored sentries with cold eyes.",
+    "image": "assets/castle_gate.png",
+    "buttons": [
+      {
+        "label": "🗣️ Speak to Guard",
+        "effects": { "xp": 1 },
+        "next_scene": "castle_gate"
+      },
+      {
+        "label": "⬅️ Return to Town Square",
+        "next_scene": "town_square"
+      }
+    ]
+  },
+
+  "tavern_inside": {
+    "title": "🍻 Tavern Interior",
+    "body": "Laughter, spilled ale, and the sound of dice on wood. A bard sings softly in the corner.",
+    "image": "assets/tavern.png",
+    "buttons": [
+      {
+        "label": "🎶 Listen to Bard",
+        "effects": { "mana": 5, "xp": 1 },
+        "next_scene": "tavern_inside"
+      },
+      {
+        "label": "🍺 Buy Ale (5 gold)",
+        "requires": { "gold": 5 },
+        "effects": { "gold": -5, "hp": 10 },
+        "next_scene": "tavern_inside"
+      },
+      {
+        "label": "⬅️ Return to Town Square",
+        "next_scene": "town_square"
+      }
+    ]
+  },
+
+  "forest_edge": {
+    "title": "🌲 Forest Edge",
+    "body": "The woods whisper with unseen eyes. Danger lurks in the shadows.",
+    "image": "assets/forest_edge.png",
+    "buttons": [
+      {
+        "label": "⚔️ Hunt Boar",
+        "effects": { "xp": 3, "gold": 2 },
+        "next_scene": "forest_edge"
+      },
+      {
+        "label": "⬅️ Return to Town Square",
+        "next_scene": "town_square"
+      }
+    ]
+  }
+}

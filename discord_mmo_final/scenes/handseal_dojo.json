@@ -1,0 +1,163 @@
+{
+  "id": "handseal_dojo",
+  "title": "The Eightfold Handseal Path",
+  "image": "static/dojo.png",
+  "pages": [
+    {
+      "page": 1,
+      "body": "You kneel before the scrolls of Stillness and Flame.",
+      "buttons": [
+        {
+          "id": "stillness",
+          "label": "Train Seal of Stillness",
+          "type": "action",
+          "effects": {
+            "active_training": "seal_stillness"
+          },
+          "next_scene": "handseal_dojo?page=1"
+        },
+        {
+          "id": "flame",
+          "label": "Train Seal of Flame",
+          "type": "action",
+          "effects": {
+            "active_training": "seal_flame"
+          },
+          "next_scene": "handseal_dojo?page=1"
+        },
+        {
+          "id": "next",
+          "label": "\u27a1\ufe0f Next Page",
+          "type": "scene",
+          "next_scene": "handseal_dojo?page=2"
+        },
+        {
+          "id": "leave",
+          "label": "Leave Dojo",
+          "type": "scene",
+          "next_scene": "town_square"
+        }
+      ]
+    },
+    {
+      "page": 2,
+      "body": "Flow and Stone await your dedication.",
+      "buttons": [
+        {
+          "id": "flow",
+          "label": "Train Seal of Flow",
+          "type": "action",
+          "effects": {
+            "active_training": "seal_flow"
+          },
+          "next_scene": "handseal_dojo?page=2"
+        },
+        {
+          "id": "stone",
+          "label": "Train Seal of Stone",
+          "type": "action",
+          "effects": {
+            "active_training": "seal_stone"
+          },
+          "next_scene": "handseal_dojo?page=2"
+        },
+        {
+          "id": "prev",
+          "label": "\u2b05\ufe0f Previous Page",
+          "type": "scene",
+          "next_scene": "handseal_dojo?page=1"
+        },
+        {
+          "id": "next",
+          "label": "\u27a1\ufe0f Next Page",
+          "type": "scene",
+          "next_scene": "handseal_dojo?page=3"
+        },
+        {
+          "id": "leave",
+          "label": "Leave Dojo",
+          "type": "scene",
+          "next_scene": "town_square"
+        }
+      ]
+    },
+    {
+      "page": 3,
+      "body": "The winds and echoes carry your spirit forward.",
+      "buttons": [
+        {
+          "id": "gale",
+          "label": "Train Seal of Gale",
+          "type": "action",
+          "effects": {
+            "active_training": "seal_gale"
+          },
+          "next_scene": "handseal_dojo?page=3"
+        },
+        {
+          "id": "echo",
+          "label": "Train Seal of Echo",
+          "type": "action",
+          "effects": {
+            "active_training": "seal_echo"
+          },
+          "next_scene": "handseal_dojo?page=3"
+        },
+        {
+          "id": "prev",
+          "label": "\u2b05\ufe0f Previous Page",
+          "type": "scene",
+          "next_scene": "handseal_dojo?page=2"
+        },
+        {
+          "id": "next",
+          "label": "\u27a1\ufe0f Next Page",
+          "type": "scene",
+          "next_scene": "handseal_dojo?page=4"
+        },
+        {
+          "id": "leave",
+          "label": "Leave Dojo",
+          "type": "scene",
+          "next_scene": "town_square"
+        }
+      ]
+    },
+    {
+      "page": 4,
+      "body": "The hidden shadow and radiant light await mastery.",
+      "buttons": [
+        {
+          "id": "shadow",
+          "label": "Train Seal of Shadow",
+          "type": "action",
+          "effects": {
+            "active_training": "seal_shadow"
+          },
+          "next_scene": "handseal_dojo?page=4"
+        },
+        {
+          "id": "radiance",
+          "label": "Train Seal of Radiance",
+          "type": "action",
+          "effects": {
+            "active_training": "seal_radiance"
+          },
+          "next_scene": "handseal_dojo?page=4"
+        },
+        {
+          "id": "prev",
+          "label": "\u2b05\ufe0f Previous Page",
+          "type": "scene",
+          "next_scene": "handseal_dojo?page=3"
+        },
+        {
+          "id": "leave",
+          "label": "Leave Dojo",
+          "type": "scene",
+          "next_scene": "town_square"
+        }
+      ]
+    }
+  ]
+}

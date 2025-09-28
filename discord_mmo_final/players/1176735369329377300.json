@@ -1,0 +1,18 @@
+{
+  "hp": 100,
+  "xp": 0,
+  "gold": 0,
+  "inventory": [],
+  "mana": 420,
+  "handseal": 0,
+  "active_training": "seal_shadow",
+  "last_training_tick": 0,
+  "mastery": 0,
+  "last_mastery_check": "",
+  "last_training_start": 0,
+  "idle_training_active": false,
+  "seal_flame": 2,
+  "training_start": 1758950327,
+  "seal_gale": 3,
+  "seal_shadow": 3
+}
